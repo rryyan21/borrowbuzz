@@ -18,7 +18,7 @@ export default function Home() {
           </div>
         </div>
         <Link href="/auth/signin" className="bg-campusYellow/90 text-campusBlue font-semibold px-6 py-2 rounded-full hover:bg-campusYellow transition-all shadow-sm">
-          Sign In
+          Sign In with .edu
         </Link>
       </header>
 
@@ -32,44 +32,57 @@ export default function Home() {
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-campusBlue mb-6 leading-tight">
             Borrow, share & connect<br />
-            <span className="text-campusNavy">right here on campus</span>
+            <span className="text-campusNavy">safely within the Wolverine community</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Need a bike for the weekend? A calculator for your exam? Your fellow Wolverines have got you covered. 
+          <p className="text-lg md:text-xl text-gray-600 mb-4 max-w-2xl mx-auto leading-relaxed">
+            Need a bike for the weekend? A calculator for your exam? Your fellow Wolverines in Ann Arbor have got you covered. 
             <span className="text-campusBlue font-medium"> Save money, make friends, help each other out.</span>
           </p>
+
+          <div className="bg-white/80 border-2 border-campusYellow/30 rounded-2xl p-6 mb-8 max-w-2xl mx-auto">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-2xl">🔒</span>
+              <span className="font-bold text-campusBlue">Safe & Verified Community</span>
+            </div>
+            <p className="text-sm text-gray-600">
+              <span className="font-semibold text-campusNavy">UMich students only!</span> Sign in with your @umich.edu email to access our trusted campus marketplace. 
+              No strangers, no scams - just Wolverines helping Wolverines.
+            </p>
+          </div>
           
-          {/* Cozy Search Bar */}
+          {/* Cozy Search Bar - Disabled with Sign-in Message */}
           <div className="w-full max-w-2xl mx-auto mb-8">
-            <form className="flex gap-2 bg-white p-2 rounded-2xl shadow-lg border border-campusYellow/20">
+            <form className="flex gap-2 bg-white/60 p-2 rounded-2xl border-2 border-dashed border-campusYellow/40 relative">
               <input
                 type="text"
-                placeholder="What do you need? Try 'bike', 'textbooks', 'mini fridge'..."
-                className="flex-1 px-6 py-3 rounded-xl border-0 focus:outline-none text-gray-700 placeholder-gray-400"
+                placeholder="Sign in first to search for 'bike', 'textbooks', 'mini fridge'..."
+                className="flex-1 px-6 py-3 rounded-xl border-0 focus:outline-none text-gray-500 placeholder-gray-400 bg-transparent"
                 disabled
               />
-              <button
-                type="button"
+              <Link 
+                href="/auth/signin"
                 className="px-6 py-3 rounded-xl bg-campusBlue text-white font-semibold hover:bg-campusNavy transition-all shadow-sm"
-                disabled
               >
-                Search 🔍
-              </button>
+                Sign In to Search 🔍
+              </Link>
+              <div className="absolute -top-3 left-4 bg-campusYellow px-2 py-1 rounded text-xs font-medium text-campusBlue">
+                @umich.edu required
+              </div>
             </form>
           </div>
           
           <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600">
             <span className="flex items-center gap-1">
-              <span>✅</span>
-              <span>UMich students only</span>
+              <span>🎓</span>
+              <span>UMich verified only</span>
             </span>
             <span className="flex items-center gap-1">
-              <span>🤝</span>
-              <span>Safe & trusted</span>
+              <span>🛡️</span>
+              <span>Safe & trusted campus community</span>
             </span>
             <span className="flex items-center gap-1">
-              <span>💛</span>
+              <span>💛💙</span>
               <span>Go Blue!</span>
             </span>
           </div>
@@ -80,8 +93,13 @@ export default function Home() {
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-campusBlue mb-3">What your neighbors are sharing</h2>
-            <p className="text-gray-600 text-lg">Real items from real Wolverines, right here in Ann Arbor</p>
+            <h2 className="text-3xl font-bold text-campusBlue mb-3">What your fellow Wolverines are sharing</h2>
+            <p className="text-gray-600 text-lg">Real items from verified Michigan students, right here in Ann Arbor</p>
+            <div className="mt-4 bg-amber-50 border border-campusYellow/30 rounded-lg p-3 max-w-md mx-auto">
+              <p className="text-sm text-campusNavy">
+                <span className="font-semibold">👀 Preview only.</span> Sign in with your @umich.edu to see full listings and contact info!
+              </p>
+            </div>
           </div>
           <SampleListings />
         </div>
@@ -91,10 +109,38 @@ export default function Home() {
       <section className="py-16 px-4 bg-white/60">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-campusBlue mb-3">Why Wolverines love BorrowBuzz</h2>
-            <p className="text-gray-600 text-lg">More than just a marketplace—it's community</p>
+            <h2 className="text-3xl font-bold text-campusBlue mb-3">Why Wolverines trust BorrowBuzz</h2>
+            <p className="text-gray-600 text-lg">More than just a marketplace—it's a verified campus community</p>
           </div>
           <Benefits />
+          
+          {/* Safety Features */}
+          <div className="mt-12 bg-gradient-to-r from-campusBlue/5 to-campusYellow/5 rounded-2xl p-8">
+            <h3 className="text-2xl font-bold text-campusBlue mb-6 text-center">🏛️ Built for Michigan Students</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-campusYellow/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-2xl">🎓</span>
+                </div>
+                <h4 className="font-semibold text-campusNavy mb-2">@umich.edu Verified</h4>
+                <p className="text-sm text-gray-600">Only verified University of Michigan students can join. Your .edu email is your key to safety.</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-campusYellow/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-2xl">🏠</span>
+                </div>
+                <h4 className="font-semibold text-campusNavy mb-2">Campus-Local</h4>
+                <p className="text-sm text-gray-600">Meet on campus, in dorms, or nearby. No long drives or sketchy meetups.</p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-campusYellow/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-2xl">🤝</span>
+                </div>
+                <h4 className="font-semibold text-campusNavy mb-2">Wolverine Trust</h4>
+                <p className="text-sm text-gray-600">We're all part of the same community. Help a fellow student out!</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -102,16 +148,28 @@ export default function Home() {
       <section className="py-16 px-4 bg-gradient-to-r from-campusYellow/20 to-amber-100/50">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-campusBlue mb-4">Ready to join the buzz? 🐝</h2>
-          <p className="text-lg text-gray-600 mb-8">
-            Join hundreds of Michigan students who are already saving money and making connections through BorrowBuzz.
+          <p className="text-lg text-gray-600 mb-6">
+            Join hundreds of verified Michigan students who are already saving money and making connections through BorrowBuzz.
           </p>
+          <div className="bg-white/80 rounded-xl p-6 mb-8 border border-campusYellow/30">
+            <h3 className="font-bold text-campusNavy mb-3">🎓 Getting Started is Easy:</h3>
+            <ol className="text-left max-w-md mx-auto space-y-2 text-sm text-gray-600">
+              <li><span className="font-semibold text-campusBlue">1.</span> Sign in with your @umich.edu email</li>
+              <li><span className="font-semibold text-campusBlue">2.</span> Browse items from fellow Wolverines</li>
+              <li><span className="font-semibold text-campusBlue">3.</span> List your own items to help others</li>
+              <li><span className="font-semibold text-campusBlue">4.</span> Meet safely on campus & build community!</li>
+            </ol>
+          </div>
           <Link 
             href="/auth/signin"
             className="inline-flex items-center gap-2 bg-campusBlue text-white font-semibold px-8 py-4 rounded-2xl hover:bg-campusNavy transition-all shadow-lg text-lg"
           >
-            <span>Get Started</span>
+            <span>Sign In with @umich.edu</span>
             <span>→</span>
           </Link>
+          <p className="text-xs text-gray-500 mt-3">
+            Only University of Michigan students • Safe & verified community
+          </p>
         </div>
       </section>
 
@@ -123,6 +181,9 @@ export default function Home() {
             <span className="font-bold text-campusBlue">BorrowBuzz</span>
           </div>
           <p className="text-sm mb-2">Made with 💛💙 for the University of Michigan community</p>
+          <p className="text-xs text-gray-500 mb-1">
+            A safe, verified marketplace for Wolverines by Wolverines
+          </p>
           <p className="text-xs text-gray-500">
             &copy; {new Date().getFullYear()} BorrowBuzz • Go Blue! 〽️
           </p>
