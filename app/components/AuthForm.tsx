@@ -4,13 +4,19 @@ import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { supabase } from '../../lib/supabase'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import BeeMascot from './BeeMascot'
 
 export default function AuthForm() {
   const router = useRouter()
+  const [redirectTo, setRedirectTo] = useState('/dashboard')
 
   useEffect(() => {
+    // Set the redirect URL with the current origin once the component mounts on the client
+    if (typeof window !== 'undefined') {
+      setRedirectTo(`${window.location.origin}/dashboard`)
+    }
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
         router.push('/dashboard')
@@ -39,7 +45,7 @@ export default function AuthForm() {
           supabaseClient={supabase}
           appearance={{ theme: ThemeSupa }}
           providers={[]}
-          redirectTo={`${window.location.origin}/dashboard`}
+          redirectTo={redirectTo}
           theme="light"
         />
         
