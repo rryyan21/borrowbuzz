@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { User } from '@supabase/supabase-js'
 import BeeMascot from './BeeMascot'
 import { signOut } from '../../lib/supabase'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 interface DashboardHeaderProps {
   user: User
@@ -12,6 +12,7 @@ interface DashboardHeaderProps {
 
 export default function DashboardHeader({ user }: DashboardHeaderProps) {
   const router = useRouter()
+  const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const handleSignOut = async () => {
@@ -22,6 +23,29 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
   const navigateTo = (path: string) => {
     router.push(path)
     setMobileMenuOpen(false) // Close mobile menu when navigating
+  }
+
+  // Function to determine if a tab is active
+  const isActive = (path: string) => {
+    if (path === '/dashboard' && pathname === '/dashboard') return true
+    if (path !== '/dashboard' && pathname.startsWith(path)) return true
+    return false
+  }
+
+  // Function to get tab styling
+  const getTabStyles = (path: string) => {
+    if (isActive(path)) {
+      return "text-campusBlue font-semibold border-b-2 border-campusBlue pb-2 transition-colors"
+    }
+    return "text-campusNavy hover:text-campusBlue font-medium transition-colors"
+  }
+
+  // Function to get mobile tab styling
+  const getMobileTabStyles = (path: string) => {
+    if (isActive(path)) {
+      return "block w-full text-left text-campusBlue font-semibold bg-campusYellow/10 px-3 py-2 rounded-lg transition-colors"
+    }
+    return "block w-full text-left text-campusNavy hover:text-campusBlue font-medium transition-colors"
   }
 
   return (
@@ -43,25 +67,25 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
           <nav className="hidden md:flex space-x-8">
             <button 
               onClick={() => navigateTo('/browse')} 
-              className="text-campusNavy hover:text-campusBlue font-medium transition-colors"
+              className={getTabStyles('/browse')}
             >
               Browse
             </button>
             <button 
               onClick={() => navigateTo('/list-item')} 
-              className="text-campusNavy hover:text-campusBlue font-medium transition-colors"
+              className={getTabStyles('/list-item')}
             >
               List Item
             </button>
             <button 
               onClick={() => navigateTo('/dashboard')} 
-              className="text-campusNavy hover:text-campusBlue font-medium transition-colors"
+              className={getTabStyles('/dashboard')}
             >
               Dashboard
             </button>
             <button 
               onClick={() => navigateTo('/help')} 
-              className="text-campusNavy hover:text-campusBlue font-medium transition-colors"
+              className={getTabStyles('/help')}
             >
               Help
             </button>
@@ -99,28 +123,28 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200">
-            <div className="space-y-4">
+            <div className="space-y-2">
               <button 
                 onClick={() => navigateTo('/browse')} 
-                className="block w-full text-left text-campusNavy hover:text-campusBlue font-medium transition-colors"
+                className={getMobileTabStyles('/browse')}
               >
                 Browse
               </button>
               <button 
                 onClick={() => navigateTo('/list-item')} 
-                className="block w-full text-left text-campusNavy hover:text-campusBlue font-medium transition-colors"
+                className={getMobileTabStyles('/list-item')}
               >
                 List Item
               </button>
               <button 
                 onClick={() => navigateTo('/dashboard')} 
-                className="block w-full text-left text-campusNavy hover:text-campusBlue font-medium transition-colors"
+                className={getMobileTabStyles('/dashboard')}
               >
                 Dashboard
               </button>
               <button 
                 onClick={() => navigateTo('/help')} 
-                className="block w-full text-left text-campusNavy hover:text-campusBlue font-medium transition-colors"
+                className={getMobileTabStyles('/help')}
               >
                 Help
               </button>

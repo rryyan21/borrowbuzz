@@ -185,7 +185,7 @@ export default function Help() {
               
               <div>
                 <h3 className="font-medium text-campusBlue mb-2">Need to report an issue</h3>
-                <p className="text-gray-600">Contact us at support@borrowbuzz.com or report through the University of Michigan support channels.</p>
+                <p className="text-gray-600">Contact us at borrowbuzz@gmail.com</p>
               </div>
             </div>
           </div>
@@ -197,9 +197,8 @@ export default function Help() {
               Still have questions? We're here to help!
             </p>
             <div className="space-y-2">
-              <p>📧 Email: support@borrowbuzz.com</p>
+              <p>📧 Email: borrowbuzz@gmail.com</p>
               <p>💬 Campus Support: Available 24/7</p>
-              <p>🏢 Office Hours: M-F 9am-5pm, Union Building</p>
             </div>
           </div>
         </div>

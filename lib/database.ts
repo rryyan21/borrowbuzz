@@ -296,3 +296,27 @@ export async function updateUserProfile(userId: string, updates: Partial<Profile
   if (error) throw error
   return data
 } 
+
+export async function deleteAllListings() {
+  const { error } = await supabase
+    .from('listings')
+    .delete()
+    .neq('id', '00000000-0000-0000-0000-000000000000') // This will delete all rows
+
+  if (error) throw error
+  return { success: true, message: 'All listings have been deleted' }
+}
+
+// Alternative: Delete only your own listings (safer)
+export async function deleteMyListings() {
+  const { data: user } = await supabase.auth.getUser()
+  if (!user.user) throw new Error('Not authenticated')
+
+  const { error } = await supabase
+    .from('listings')
+    .delete()
+    .eq('user_id', user.user.id)
+
+  if (error) throw error
+  return { success: true, message: 'Your listings have been deleted' }
+} 

@@ -286,39 +286,50 @@ export default function Browse() {
               </p>
             </div>
 
-            {/* Gallery Grid */}
+            {/* Enhanced Gallery Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {listings.map((listing) => (
+              {listings.map((listing, index) => (
                 <div
                   key={listing.id}
-                  className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 overflow-hidden cursor-pointer group border border-gray-200"
+                  className="bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer group border border-gray-200 hover:border-campusYellow/50 animate-fade-in opacity-0"
+                  style={{ animationDelay: `${index * 0.1}s` }}
                   onClick={() => router.push(`/listing/${listing.id}`)}
                 >
-                  {/* Image */}
-                  <div className="h-48 overflow-hidden">
+                  {/* Enhanced Image */}
+                  <div className="h-48 overflow-hidden relative">
                     {listing.images && listing.images.length > 0 ? (
-                      <img
-                        src={listing.images[0]}
-                        alt={listing.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-                      />
+                      <>
+                        <img
+                          src={listing.images[0]}
+                          alt={listing.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </>
                     ) : (
-                      <div className="bg-gradient-to-br from-campusBlue to-campusNavy h-full flex items-center justify-center group-hover:from-campusNavy group-hover:to-campusBlue transition-all duration-200">
-                        <div className="text-white text-5xl">
+                      <div className="bg-gradient-to-br from-campusBlue to-campusNavy h-full flex items-center justify-center group-hover:from-campusNavy group-hover:to-campusBlue transition-all duration-300">
+                        <div className="text-white text-5xl group-hover:scale-110 group-hover:animate-bounce-gentle transition-transform duration-300">
                           {categories.find(c => c.name === listing.category)?.emoji || '📦'}
                         </div>
                       </div>
                     )}
+                    
+                    {/* Hover Overlay */}
+                    <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="bg-white/90 backdrop-blur-sm rounded-full p-2">
+                        <span className="text-campusBlue text-sm font-medium">View Details</span>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="p-4">
+                  {/* Enhanced Content */}
+                  <div className="p-4 space-y-3">
                     {/* Title and Price */}
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-campusNavy text-lg leading-tight group-hover:text-campusBlue transition-colors line-clamp-2">
+                    <div className="flex justify-between items-start">
+                      <h3 className="font-semibold text-campusNavy text-lg leading-tight group-hover:text-campusBlue transition-colors duration-200 line-clamp-2 group-hover:scale-105 origin-left transition-transform">
                         {listing.title}
                       </h3>
-                      <div className="text-right ml-2 flex-shrink-0">
+                      <div className="text-right ml-2 flex-shrink-0 group-hover:scale-110 transition-transform duration-200">
                         <div className="font-bold text-campusBlue text-lg">
                           ${listing.price_per_day}
                         </div>
@@ -327,39 +338,41 @@ export default function Browse() {
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                    <p className="text-gray-600 text-sm line-clamp-2 group-hover:text-gray-700 transition-colors duration-200">
                       {listing.description || 'No description available'}
                     </p>
 
                     {/* Details */}
-                    <div className="flex justify-between items-center text-xs text-gray-500 mb-3">
-                      <span className="bg-gray-100 px-2 py-1 rounded-full">
+                    <div className="flex justify-between items-center text-xs text-gray-500">
+                      <span className="bg-gray-100 px-2 py-1 rounded-full group-hover:bg-campusYellow/20 group-hover:text-campusNavy transition-all duration-200">
                         {formatCondition(listing.condition)}
                       </span>
-                      <span>{listing.view_count} views</span>
+                      <span className="group-hover:text-campusBlue transition-colors duration-200">
+                        {listing.view_count} views
+                      </span>
                     </div>
 
                     {/* Location and Date */}
-                    <div className="flex justify-between items-center text-xs text-gray-500 mb-3">
-                      <span>📍 {listing.location || 'Campus'}</span>
+                    <div className="flex justify-between items-center text-xs text-gray-500">
+                      <span className="group-hover:text-campusBlue transition-colors duration-200">
+                        📍 {listing.location || 'Campus'}
+                      </span>
                       <span>{formatDate(listing.created_at)}</span>
                     </div>
 
                     {/* Owner */}
-                    <div className="flex items-center justify-between text-sm text-gray-600 pt-2 border-t border-gray-100">
-                      <div className="flex items-center">
-                        <div className="w-6 h-6 bg-campusYellow rounded-full flex items-center justify-center mr-2">
-                          <span className="text-xs">👤</span>
+                    <div className="flex items-center justify-between pt-2 border-t border-gray-100">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 bg-campusYellow rounded-full flex items-center justify-center text-xs font-bold text-campusNavy group-hover:scale-110 transition-transform duration-200">
+                          🎓
                         </div>
-                        <span className="truncate">
+                        <span className="text-xs text-gray-600 group-hover:text-campusBlue transition-colors duration-200">
                           Wolverine
                         </span>
                       </div>
-                      {listing.user_id === user?.id && (
-                        <span className="ml-2 text-xs bg-campusBlue text-white px-2 py-1 rounded-full">
-                          Your listing
-                        </span>
-                      )}
+                      <div className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full group-hover:bg-green-200 transition-colors duration-200">
+                        Available
+                      </div>
                     </div>
                   </div>
                 </div>
